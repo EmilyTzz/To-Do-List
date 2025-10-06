@@ -15,10 +15,10 @@ def monday_clicked():
     return_button.place(x=0, y=0)
     app_title.config(text='Things to do for Monday: ')
     type_task = Entry(root, width = 20, font = ('Ink Free', 25))
-    type_task.place(x=32.5, y=580)
+    type_task.place(relx = 0.5, rely = 0.9, anchor = 'center')
     add_task = Button(root, text = 'Add', width = 15)
     add_task.config(bg = '#f0efa8' )
-    add_task.place(x=170, y=640)
+    add_task.place(relx = 0.5, rely = 0.953, anchor='center')
 
 
 def return_menu():
