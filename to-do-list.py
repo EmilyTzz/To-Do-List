@@ -57,14 +57,14 @@ def return_menu():
     friday.pack()
     saturday.pack()
     sunday.pack()
-    for task in monday_tasks:
+    for task in reversed(monday_tasks):
         task.pack_forget()
 
 def delete_checkbox(checkbox, var):
     if var.get() == 1:
         checkbox.destroy()
-        for checkpoint in monday_tasks:
-            monday_tasks.remove(checkpoint)
+        for checkbox in reversed(monday_tasks):
+            monday_tasks.remove(checkbox)
 
 
 monday = Button(root, text = 'Monday')
