@@ -25,31 +25,22 @@ def monday_clicked():
     app_title.config(text='Things to do for Monday: ')
     type_task = Entry(root, width = 20, font = ('Ink Free', 25))
     type_task.place(relx = 0.5, rely = 0.9, anchor = 'center')
-    add_task = Button(root, text = 'Add', width = 15, command = add_in_monday)
+    add_task = Button(root, text = 'Add', width = 15, command = add_task_monday)
     add_task.config(bg = '#f0efa8' )
     add_task.place(relx = 0.5, rely = 0.953, anchor='center')
-    for task in monday_tasks:
-        task.pack()
+    for monday_task in monday_tasks:
+        monday_task.pack()
     
-def add_in_monday():
-    checkbox_var = IntVar() # creates a variable that stores an integer
-    task = Checkbutton(root, text = type_task.get(),
-                       variable = checkbox_var,
-                       onvalue = 1,
-                       offvalue = 0,
-                       command = lambda: delete_checkbox(task, checkbox_var))
-    task.config(font=('Ink Free', 30), anchor = 'w')
-    monday_tasks.append(task)
-    x_vars.append(checkbox_var)
-    task.pack()
-    type_task.delete(0, END)
+def add_task_monday():
+    global monday_task
+    monday_task = Listbox(root,
+                          bg="White",
+                          font = ('Constantia',30),
+                          width = 20,
+                          selectmode = MULTIPLE)
+    monday_task.pack()
+    monday_task.insert(END, type_task.get())
 
-
-def delete_checkbox(checkbox, var):
-    if var.get() == 1:
-        checkbox.destroy()
-        for checkbox in monday_tasks:
-            monday_tasks.remove(checkbox)
 
 def return_menu():
     global returned
@@ -64,8 +55,9 @@ def return_menu():
     friday.pack()
     saturday.pack()
     sunday.pack()
-    for task in reversed(monday_tasks):
-        task.pack_forget()
+    for monday_task in monday_tasks:
+        monday_task.pack_forget()
+
 
 
 monday = Button(root, text = 'Monday')
