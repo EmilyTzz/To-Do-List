@@ -44,6 +44,13 @@ def add_in_monday():
     task.pack()
     type_task.delete(0, END)
 
+
+def delete_checkbox(checkbox, var):
+    if var.get() == 1:
+        checkbox.destroy()
+        for checkbox in monday_tasks:
+            monday_tasks.remove(checkbox)
+
 def return_menu():
     global returned
     app_title.config(text='To-Do List for The Week: ')
@@ -59,12 +66,6 @@ def return_menu():
     sunday.pack()
     for task in reversed(monday_tasks):
         task.pack_forget()
-
-def delete_checkbox(checkbox, var):
-    if var.get() == 1:
-        checkbox.destroy()
-        for checkbox in reversed(monday_tasks):
-            monday_tasks.remove(checkbox)
 
 
 monday = Button(root, text = 'Monday')
