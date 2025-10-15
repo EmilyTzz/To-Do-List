@@ -11,7 +11,7 @@ app_title.pack(pady = 20)
 
 
 def monday_clicked():
-    global return_button, add_task, type_task
+    global return_button, add_task, type_task, monday_task, delete_task
     monday.pack_forget()
     tuesday.pack_forget()
     wednesday.pack_forget()
@@ -19,28 +19,47 @@ def monday_clicked():
     friday.pack_forget()
     saturday.pack_forget()
     sunday.pack_forget()
+
     return_button = Button(root, text = 'X')
     return_button.config(font= ('Ink Free', 15), bg = 'Red', command = return_menu)
     return_button.place(x=0, y=0)
+
     app_title.config(text='Things to do for Monday: ')
     type_task = Entry(root, width = 20, font = ('Ink Free', 25))
     type_task.place(relx = 0.5, rely = 0.9, anchor = 'center')
+
     add_task = Button(root, text = 'Add', width = 15, command = add_task_monday)
     add_task.config(bg = '#f0efa8' )
-    add_task.place(relx = 0.5, rely = 0.953, anchor='center')
-    for monday_task in monday_tasks:
-        monday_task.pack()
-    
-def add_task_monday():
-    global monday_task
+    add_task.place(relx = 0.35, rely = 0.953, anchor='center')
+
+    delete_task = Button(root, text = 'Delete', width = 15, command = delete_task_monday)
+    delete_task.config(bg = 'Red')
+    delete_task.place(relx = 0.65, rely = 0.953, anchor='center')
+
     monday_task = Listbox(root,
                           bg="White",
                           font = ('Constantia',30),
                           width = 20,
                           selectmode = MULTIPLE)
     monday_task.pack()
-    monday_task.insert(END, type_task.get())
+    monday_task.config(height = monday_task.size()) 
 
+    for monday_task in monday_tasks:
+        monday_task.pack()
+    
+def add_task_monday():
+    task = type_task.get().strip()
+    if task:
+        monday_tasks.append(monday_task)
+        monday_task.insert(END, task)
+        type_task.delete(0, END)
+
+
+def delete_task_monday():
+    for task in reversed(monday_task.curselection()):
+        monday_task.delete(task)
+        del monday_tasks[task]
+   
 
 def return_menu():
     global returned
@@ -48,6 +67,7 @@ def return_menu():
     return_button.place_forget()
     type_task.place_forget()
     add_task.place_forget()
+    delete_task.place_forget()
     monday.pack()
     tuesday.pack()
     wednesday.pack()
@@ -55,8 +75,7 @@ def return_menu():
     friday.pack()
     saturday.pack()
     sunday.pack()
-    for monday_task in monday_tasks:
-        monday_task.pack_forget()
+    monday_task.pack_forget()
 
 
 
